@@ -27,7 +27,7 @@ object KafkaRedisOffset {
     // 组名
     val groupId = "group01"
     // topic
-    val topic = "AdRealTimeLog"
+    val topic = "cmcc"
     // 指定Kafka的broker地址（SparkStreaming程序消费过程中，需要和Kafka的分区对应）
     val brokerList = "hadoop01:9092,hadoop02:9092,hadoop03:9092"
     // 编写Kafka的配置参数

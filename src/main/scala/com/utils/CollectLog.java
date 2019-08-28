@@ -17,7 +17,7 @@ public class CollectLog {
        //这个是用来配置kafka的参数
        Properties prop = new Properties();
        //这里不是配置broker.id了，这个是配置bootstrap.servers
-       prop.put("bootstrap.servers", "node1:9092,node2:9092,node3:9092");
+       prop.put("bootstrap.servers", "hadoop01:9092,hadoop02:9092,hadoop03:9092");
        //下面是分别配置 key和value的序列化
        prop.put("key.serializer",
                "org.apache.kafka.common.serialization.StringSerializer");
@@ -29,13 +29,13 @@ public class CollectLog {
            BufferedReader bf = new BufferedReader(
                    new FileReader(
                            new File(
-                                   "D:\\wc.txt")));// 路径
+                                   "C:\\Users\\孙洪斌\\Desktop\\充值平台实时统计分析\\cmcc.json")));// 路径
            String line = null;
            while((line=bf.readLine())!=null){
                Thread.sleep(1000);
                producer.send(
                        new ProducerRecord<String, String>(
-                               "hz1803b", line));
+                               "cmcc", line));
            }
            bf.close();
            producer.close();
