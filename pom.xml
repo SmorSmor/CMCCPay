@@ -138,13 +138,13 @@
 
         <dependency>
             <groupId>org.scalikejdbc</groupId>
-            <artifactId>scalikejdbc-core_2.10</artifactId>
+            <artifactId>scalikejdbc-core_2.11</artifactId>
             <version>2.5.0</version>
         </dependency>
 
         <dependency>
             <groupId>org.scalikejdbc</groupId>
-            <artifactId>scalikejdbc-config_2.10</artifactId>
+            <artifactId>scalikejdbc-config_2.11</artifactId>
             <version>2.5.0</version>
         </dependency>
 
@@ -154,6 +154,7 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.58</version>
         </dependency>
+
 
     </dependencies>
     <build>
