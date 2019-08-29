@@ -32,10 +32,10 @@ public class CollectLog {
                                    "C:\\Users\\孙洪斌\\Desktop\\充值平台实时统计分析\\cmcc.json")));// 路径
            String line = null;
            while((line=bf.readLine())!=null){
-               Thread.sleep(100);
+               Thread.sleep(1);
                producer.send(
                        new ProducerRecord<String, String>(
-                               "cmccpay", line));
+                               "cmcc_pay", line));
            }
            bf.close();
            producer.close();
