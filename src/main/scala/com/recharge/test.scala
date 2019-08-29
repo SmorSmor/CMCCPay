@@ -6,11 +6,11 @@ import scalikejdbc.config.DBs
 
 object test {
   def main(args: Array[String]): Unit = {
-//    DBs.setup()
-//    val maybeString: Option[String] = DB readOnly(implicit session => {
-//      SQL("select hour from hour_countcast where hour = '2017041209' ").map(rs => rs.string("hour")).first.apply()
-//    })
-//    println(maybeString.isEmpty)
+    //    DBs.setup()
+    //    val maybeString: Option[String] = DB readOnly(implicit session => {
+    //      SQL("select hour from hour_countcast where hour = '2017041209' ").map(rs => rs.string("hour")).first.apply()
+    //    })
+    //    println(maybeString.isEmpty)
 
 
     // 创建Spark程序入口

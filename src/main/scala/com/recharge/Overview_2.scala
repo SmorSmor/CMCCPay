@@ -7,9 +7,7 @@ import com.utils.{JedisConnectionPool, JedisOffset, TimeUtil}
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.serialization.StringDeserializer
-import org.apache.spark.{SparkConf, SparkContext}
-import org.apache.spark.broadcast.Broadcast
-import org.apache.spark.rdd.RDD
+import org.apache.spark.SparkConf
 import org.apache.spark.streaming.dstream.InputDStream
 import org.apache.spark.streaming.kafka010.{ConsumerStrategies, HasOffsetRanges, KafkaUtils, LocationStrategies}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
@@ -28,13 +26,13 @@ object Overview_2 {
       // 设置序列化机制
       .set("spark.serlizer", "org.apache.spark.serializer.KryoSerializer")
     //    val sc: SparkContext = new SparkContext(conf)
-    val ssc = new StreamingContext(conf, Seconds(3))
+    val ssc = new StreamingContext(conf, Seconds(2))
     // 配置参数
     // 配置基本参数
     // 组名
     val groupId = "group01"
     // topic
-    val topic = "cmcc"
+    val topic = "cmccpay"
     // 指定Kafka的broker地址（SparkStreaming程序消费过程中，需要和Kafka的分区对应）
     val brokerList = "hadoop01:9092,hadoop02:9092,hadoop03:9092"
     // 编写Kafka的配置参数
@@ -75,6 +73,8 @@ object Overview_2 {
           ConsumerStrategies.Assign[String, String](fromOffset.keys, kafkas, fromOffset)
         )
       }
+
+    // 将城市编号和城市名做成 MAP 广播出去
     val AppParams = ssc.sparkContext.textFile("C:\\Users\\孙洪斌\\Desktop\\充值平台实时统计分析\\city.txt")
       .map(_.split(" ")).map(arr => (arr(0), arr(1))).collect().toMap
     val pcode2PName = ssc.sparkContext.broadcast(AppParams)
@@ -83,6 +83,7 @@ object Overview_2 {
         val offestRange = rdd.asInstanceOf[HasOffsetRanges].offsetRanges
         // 业务处理
         val baseRDD = rdd.map(t => JSON.parseObject(t.value()))
+          // 过滤接口
           .filter(_.getString("serviceName").equalsIgnoreCase("reChargeNotifyReq"))
           .map(obj => {
             // 判断该条日志是否是充值成功的日志
@@ -97,8 +98,10 @@ object Overview_2 {
             val hour = requestId.substring(0, 10)
             val minute = requestId.substring(0, 12)
 
-            //省份Code
+            // 省份Code
             val provinceCode = obj.getString("provinceCode")
+
+            // 花费时间
             val costTime = TimeUtil.caculateTime(requestId, receiveTime)
             val succAndFeeAndTime: (Double, Double, Double) = if (result.equals("0000")) (1, fee, costTime) else (0, 0, 0)
 
@@ -107,57 +110,62 @@ object Overview_2 {
 
           }).cache()
 
-        //        // 指标 1.1	统计全网的充值订单量, 充值金额, 充值成功数
-        //        baseRDD.map(tp => (tp._1, tp._4)).reduceByKey((list1, list2) => {
-        //          list1.zip(list2).map(tp => tp._1 + tp._2)
-        //        }).foreachPartition(par => {
-        //          val jedis = JedisConnectionPool.getConnection()
-        //          par.foreach(tp => {
-        //
-        //            jedis.hincrBy("A-" + tp._1, "total", tp._2.head.toLong)
-        //            jedis.hincrBy("A-" + tp._1, "succ", tp._2(1).toLong)
-        //            jedis.hincrByFloat("A-" + tp._1, "money", tp._2(2))
-        //            jedis.hincrBy("A-" + tp._1, "cost", tp._2(3).toLong)
-        //            jedis.expire("A-" + tp._1, 48 * 60 * 60) // 设置key的有效期
-        //            println(jedis.hget("A-" + tp._1, "total"))
-        //            println(jedis.hget("A-" + tp._1, "succ"))
-        //            println(jedis.hget("A-" + tp._1, "money"))
-        //            println(jedis.hget("A-" + tp._1, "cost"))
-        //            println("-------------------------------------")
-        //          })
-        //          jedis.close()
-        //        })
-        //
-        //        // 指标 1.2 实时充值业务办理趋势, 主要统计全网每分钟的订单量数据
-        //        baseRDD.map(tp => ((tp._1, tp._2, tp._3), List(tp._4.head, tp._4(1)))).reduceByKey((list1, list2) => {
-        //          list1.zip(list2).map(tp => tp._1 + tp._2)
-        //        }).foreachPartition(partition => {
-        //          val jedis = JedisConnectionPool.getConnection()
-        //          partition.foreach(tp => {
-        //
-        //            //总的充值成功和失败订单数量
-        //            jedis.hincrBy("B-" + tp._1._1, "T:" + tp._1._2 + tp._1._3, tp._2.head.toLong)
-        //            jedis.hincrBy("B-" + tp._1._1, "S:" + tp._1._2 + tp._1._3, tp._2(1).toLong)//充值成功的订单数量
-        //            jedis.expire("B-" + tp._1._1, 48 * 60 * 60)
-        //            // 控制台输出测试
-        //            println(jedis.hget("B-" + tp._1._1, "T:" + tp._1._2 + tp._1._3))
-        //            println(jedis.hget("B-" + tp._1._1, "S:" + tp._1._2 + tp._1._3))//充值成功的订单数量
-        //            println("-------------------------------------")
-        //          })
-        //          jedis.close()
-        //        })
-        //
-        //        // 指标 2 统计每小时各个省份的充值失败数据量
+        // 指标 1.1	统计全网的充值订单量, 充值金额, 充值成功数
+        baseRDD.map(tp => (tp._1, tp._4)).reduceByKey((list1, list2) => {
+          // 聚合结果
+          list1.zip(list2).map(tp => tp._1 + tp._2)
+        }).foreachPartition(part => {
+          val jedis = JedisConnectionPool.getConnection()
+          part.foreach(tp => {
+            // hincrBy如果有就累加，如果没有就插入
+            jedis.hincrBy("A-" + tp._1, "total", tp._2.head.toLong)
+            jedis.hincrBy("A-" + tp._1, "succ", tp._2(1).toLong)
+            jedis.hincrByFloat("A-" + tp._1, "money", tp._2(2))
+            jedis.hincrBy("A-" + tp._1, "cost", tp._2(3).toLong)
+            jedis.expire("A-" + tp._1, 48 * 60 * 60) // 设置key的有效期
+            // 输出控制台测试
+            println(jedis.hget("A-" + tp._1, "total"))
+            println(jedis.hget("A-" + tp._1, "succ"))
+            println(jedis.hget("A-" + tp._1, "money"))
+            println(jedis.hget("A-" + tp._1, "cost"))
+            println("-------------------------------------")
+          })
+          jedis.close()
+        })
+
+//        // 指标 1.2 实时充值业务办理趋势, 主要统计全网每分钟的订单量数据
+//        baseRDD.map(tp => ((tp._1, tp._2, tp._3), List(tp._4.head, tp._4(1)))).reduceByKey((list1, list2) => {
+//          // 聚合结果
+//          list1.zip(list2).map(tp => tp._1 + tp._2)
+//        }).foreachPartition(part => {
+//          val jedis = JedisConnectionPool.getConnection()
+//          part.foreach(tp => {
+//
+//            //总的充值成功和失败订单数量
+//            jedis.hincrBy("B-" + tp._1._1, "T:" + tp._1._2 + tp._1._3, tp._2.head.toLong)
+//            jedis.hincrBy("B-" + tp._1._1, "S:" + tp._1._2 + tp._1._3, tp._2(1).toLong) //充值成功的订单数量
+//            jedis.expire("B-" + tp._1._1, 48 * 60 * 60)
+//            // 控制台输出测试
+//            println(jedis.hget("B-" + tp._1._1, "T:" + tp._1._2 + tp._1._3))
+//            println(jedis.hget("B-" + tp._1._1, "S:" + tp._1._2 + tp._1._3)) //充值成功的订单数量
+//            println("-------------------------------------")
+//          })
+//          jedis.close()
+//        })
+
+        // 指标 2 统计每小时各个省份的充值失败数据量
         DBs.setup()
 
         baseRDD.map(tp => ((tp._3, tp._5), (tp._4.head, tp._4(1)))).reduceByKey((x, y) => (x._1 + y._1, x._2 + y._2))
-          .foreachPartition(partition => {
-            partition.foreach(tp => {
+          .foreachPartition(part => {
+            part.foreach(tp => {
               // 每个省每小时失败的个数
+
               if ((tp._2._1 - tp._2._1).toLong != 0)
                 DB.localTx(implicit session => {
-
-                  SQL("insert into city_failcount values(?,?,?)").bind(pcode2PName.value.getOrElse(tp._1._2, tp._1._2), tp._1._1, (tp._2._1 - tp._2._1).toLong).update().apply()
+                  SQL("insert into city_failcount values(?,?,?)")
+                    .bind(pcode2PName.value.getOrElse(tp._1._2, tp._1._2), tp._1._1, (tp._2._1 - tp._2._1).toLong)
+                    .update().apply()
                 })
 
             })
@@ -165,20 +173,26 @@ object Overview_2 {
 
         // 指标 3 以省份为维度统计订单量排名前 10 的省份数据,并且统计每个省份的订单成功率，只保留一位小数，存入MySQL中，进行前台页面显示。
         baseRDD.map(tp => (tp._5, (tp._4.head, tp._4(1)))).reduceByKey((x, y) => (x._1 + y._1, x._2 + y._2))
-          .foreachPartition(partition => {
-            partition.foreach(tp => {
+          .foreachPartition(part => {
+            part.foreach(tp => {
 
               // 如果有就累加，如果没有就插入
-              val maybeString: Option[String] = DB readOnly (implicit session => {
-                SQL(s"select city from city_topn where city = '${pcode2PName.value.getOrElse(tp._1, tp._1)}' ").map(rs => rs.string("city")).first.apply()
+              val maybeString: Option[String] = DB.readOnly(implicit session => {
+                SQL(s"select city from city_topn where city = '${pcode2PName.value.getOrElse(tp._1, tp._1)}' ")
+                  .map(rs => rs.string("city"))
+                  .first.apply()
               })
               if (maybeString.isEmpty) {
                 DB.localTx(implicit session => {
-                  SQL("insert into city_topn values(?,?,?)").bind(pcode2PName.value.getOrElse(tp._1, tp._1), tp._2._2, (tp._2._2.toDouble / tp._2._1.toDouble)).update().apply()
+                  SQL("insert into city_topn values(?,?,?)")
+                    .bind(pcode2PName.value.getOrElse(tp._1, tp._1), tp._2._2, (tp._2._2.toDouble / tp._2._1.toDouble))
+                    .update().apply()
                 })
               } else {
                 DB.localTx { implicit session =>
-                  SQL("UPDATE city_topn SET count  = count + ? , succ = ? ").bind(tp._2._2, (tp._2._2.toDouble / tp._2._1.toDouble)).update().apply()
+                  SQL("UPDATE city_topn SET count  = count + ? , succ = ? where city = ?")
+                    .bind(tp._2._2, (tp._2._2.toDouble / tp._2._1.toDouble), pcode2PName.value.getOrElse(tp._1, tp._1))
+                    .update().apply()
                 }
               }
             })
@@ -187,20 +201,26 @@ object Overview_2 {
         // 指标 4 实时统计每小时的充值笔数和充值金额。
 
         baseRDD.map(tp => (tp._2, (tp._4(1), tp._4(2)))).reduceByKey((x, y) => (x._1 + y._1, x._2 + y._2))
-          .foreachPartition(partition => {
-            partition.foreach(tp => {
+          .foreachPartition(part => {
+            part.foreach(tp => {
 
               // 如果有就累加，如果没有就插入
-              val maybeString: Option[String] = DB readOnly (implicit session => {
-                SQL(s"select hour from hour_countcast where hour = '${tp._1}' ").map(rs => rs.string("hour")).first.apply()
+              val maybeString: Option[String] = DB.readOnly(implicit session => {
+                SQL(s"select hour from hour_countcast where hour = '${tp._1}' ")
+                  .map(rs => rs.string("hour"))
+                  .first.apply()
               })
               if (maybeString.isEmpty) {
                 DB.localTx(implicit session => {
-                  SQL("insert into hour_countcast values(?,?,?)").bind(tp._1, tp._2._1, tp._2._2).update().apply()
+                  SQL("insert into hour_countcast values(?,?,?)")
+                    .bind(tp._1, tp._2._1, tp._2._2)
+                    .update().apply()
                 })
               } else {
                 DB.localTx { implicit session =>
-                  SQL("update hour_countcast SET count  = count + ? , cast = cast + ? ").bind(tp._2._1, tp._2._2).update().apply()
+                  SQL("update hour_countcast SET count  = count + ? , cast = cast + ? where hour = ?")
+                    .bind(tp._2._1, tp._2._2, tp._1)
+                    .update().apply()
                 }
               }
             })
