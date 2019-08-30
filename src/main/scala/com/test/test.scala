@@ -1,8 +1,6 @@
-package com.recharge
+package com.test
 
 import org.apache.spark.sql.SparkSession
-import scalikejdbc.{DB, SQL}
-import scalikejdbc.config.DBs
 
 object test {
   def main(args: Array[String]): Unit = {
