@@ -11,7 +11,7 @@ import org.apache.spark.SparkConf
 import org.apache.spark.streaming.dstream.InputDStream
 import org.apache.spark.streaming.kafka010.{ConsumerStrategies, HasOffsetRanges, KafkaUtils, LocationStrategies}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
-import scalikejdbc.{ConnectionPool, DB, SQL}
+import scalikejdbc.{DB, SQL}
 import scalikejdbc.config.DBs
 
 
@@ -25,7 +25,6 @@ object Overview_2 {
       .set("spark.streaming.kafka.maxRatePerPartition", "100")
       // 设置序列化机制
       .set("spark.serlizer", "org.apache.spark.serializer.KryoSerializer")
-    //    val sc: SparkContext = new SparkContext(conf)
     val ssc = new StreamingContext(conf, Seconds(1))
     // 配置参数
     // 配置基本参数
@@ -110,81 +109,81 @@ object Overview_2 {
 
           }).cache()
 
-        //        // 指标 1.1	统计全网的充值订单量, 充值金额, 充值成功数
-        //        baseRDD.map(tp => (tp._1, tp._4)).reduceByKey((list1, list2) => {
-        //          // 聚合结果
-        //          list1.zip(list2).map(tp => tp._1 + tp._2)
-        //        }).foreachPartition(part => {
-        //          val jedis = JedisConnectionPool.getConnection()
-        //          part.foreach(tp => {
-        //            // hincrBy如果有就累加，如果没有就插入
-        //            jedis.hincrBy("A-" + tp._1, "total", tp._2.head.toLong)
-        //            jedis.hincrBy("A-" + tp._1, "succ", tp._2(1).toLong)
-        //            jedis.hincrByFloat("A-" + tp._1, "money", tp._2(2))
-        //            jedis.hincrBy("A-" + tp._1, "cost", tp._2(3).toLong)
-        //            jedis.expire("A-" + tp._1, 48 * 60 * 60) // 设置key的有效期
-        //            // 输出控制台测试
-        //            println(jedis.hget("A-" + tp._1, "total"))
-        //            println(jedis.hget("A-" + tp._1, "succ"))
-        //            println(jedis.hget("A-" + tp._1, "money"))
-        //            println(jedis.hget("A-" + tp._1, "cost"))
-        //            println("-------------------------------------")
-        //          })
-        //          jedis.close()
-        //        })
-        //
-        //        // 指标 1.2 实时充值业务办理趋势, 主要统计全网每分钟的订单量数据
-        //        baseRDD.map(tp => ((tp._1, tp._2, tp._3), List(tp._4.head, tp._4(1)))).foreachPartition(part => {
-        //          val jedis = JedisConnectionPool.getConnection()
-        //          part.foreach(tp => {
-        //
-        //            //总的充值成功和失败订单数量
-        //            jedis.hincrBy("B-" + tp._1._1, "T:" + tp._1._2 + tp._1._3, tp._2.head.toLong)
-        //            jedis.hincrBy("B-" + tp._1._1, "S:" + tp._1._2 + tp._1._3, tp._2(1).toLong) //充值成功的订单数量
-        //            jedis.expire("B-" + tp._1._1, 48 * 60 * 60)
-        //            // 控制台输出测试
-        //            println(jedis.hget("B-" + tp._1._1, "T:" + tp._1._2 + tp._1._3))
-        //            println(jedis.hget("B-" + tp._1._1, "S:" + tp._1._2 + tp._1._3)) //充值成功的订单数量
-        //            println("-------------------------------------")
-        //          })
-        //          jedis.close()
-        //        })
-        //
-        //        Class.forName("org.h2.Driver")
-        //        ConnectionPool.add('h2mem,"jdbc:h2:mem:hello", "user", "pass")
-        //        // 指标 2 统计每小时各个省份的充值失败数据量
-        //
-        //        baseRDD.map(tp => ((tp._2, tp._5), (tp._4.head, tp._4(1))))
-        //          .foreachPartition(part => {
-        //            DBs.setupAll()
-        //            part.foreach(tp => {
-        //              // 每个省每小时失败的个数
-        //
-        //              if (tp._2._2 == 0) {
-        //                val maybeString: Option[String] = DB.readOnly(implicit session => {
-        //                  SQL("select city from city_failcount where   city = ? and time = ? ")
-        //                    .bind(pcode2PName.value.getOrElse(tp._1._2, tp._1._2), tp._1._1)
-        //                    .map(rs => rs.string("city"))
-        //                    .first.apply()
-        //                })
-        //                if (maybeString.isEmpty) {
-        //                  DB.localTx(implicit session => {
-        //                    SQL("insert into city_failcount values(?,?,?)")
-        //                      .bind(pcode2PName.value.getOrElse(tp._1._2, tp._1._2), tp._1._1, 1)
-        //                      .update().apply()
-        //                  })
-        //                } else {
-        //                  DB.localTx { implicit session =>
-        //                    SQL("UPDATE city_failcount SET count  = count + ? where  city = ? and time = ?")
-        //                      .bind(1.0.toInt, pcode2PName.value.getOrElse(tp._1._2, tp._1._2), tp._1._1)
-        //                      .update().apply()
-        //                  }
-        //                }
-        //              }
-        //            })
-        //          })
-        //
-        //
+        // 指标 1.1	统计全网的充值订单量, 充值金额, 充值成功数
+        baseRDD.map(tp => (tp._1, tp._4)).reduceByKey((list1, list2) => {
+          // 聚合结果
+          list1.zip(list2).map(tp => tp._1 + tp._2)
+        }).foreachPartition(part => {
+          val jedis = JedisConnectionPool.getConnection()
+          part.foreach(tp => {
+            // hincrBy如果有就累加，如果没有就插入
+            jedis.hincrBy("A-" + tp._1, "total", tp._2.head.toLong)
+            jedis.hincrBy("A-" + tp._1, "succ", tp._2(1).toLong)
+            jedis.hincrByFloat("A-" + tp._1, "money", tp._2(2))
+            jedis.hincrBy("A-" + tp._1, "cost", tp._2(3).toLong)
+            jedis.expire("A-" + tp._1, 48 * 60 * 60) // 设置key的有效期
+            // 输出控制台测试
+            println(jedis.hget("A-" + tp._1, "total"))
+            println(jedis.hget("A-" + tp._1, "succ"))
+            println(jedis.hget("A-" + tp._1, "money"))
+            println(jedis.hget("A-" + tp._1, "cost"))
+            println("-------------------------------------")
+          })
+          jedis.close()
+        })
+
+        // 指标 1.2 实时充值业务办理趋势, 主要统计全网每分钟的订单量数据
+        baseRDD.map(tp => ((tp._1, tp._2, tp._3), List(tp._4.head, tp._4(1)))).foreachPartition(part => {
+          val jedis = JedisConnectionPool.getConnection()
+          part.foreach(tp => {
+
+            //总的充值成功和失败订单数量
+            jedis.hincrBy("B-" + tp._1._1, "T:" + tp._1._2 + tp._1._3, tp._2.head.toLong)
+            jedis.hincrBy("B-" + tp._1._1, "S:" + tp._1._2 + tp._1._3, tp._2(1).toLong) //充值成功的订单数量
+            jedis.expire("B-" + tp._1._1, 48 * 60 * 60)
+            // 控制台输出测试
+            println(jedis.hget("B-" + tp._1._1, "T:" + tp._1._2 + tp._1._3))
+            println(jedis.hget("B-" + tp._1._1, "S:" + tp._1._2 + tp._1._3)) //充值成功的订单数量
+            println("-------------------------------------")
+          })
+          jedis.close()
+        })
+
+        //                Class.forName("org.h2.Driver")
+        //                ConnectionPool.add('h2mem,"jdbc:h2:mem:hello", "user", "pass")
+        // 指标 2 统计每小时各个省份的充值失败数据量
+
+        baseRDD.map(tp => ((tp._2, tp._5), (tp._4.head, tp._4(1))))
+          .foreachPartition(part => {
+            DBs.setupAll()
+            part.foreach(tp => {
+              // 每个省每小时失败的个数
+
+              if (tp._2._2 == 0) {
+                val maybeString: Option[String] = DB.readOnly(implicit session => {
+                  SQL("select city from city_failcount where   city = ? and time = ? ")
+                    .bind(pcode2PName.value.getOrElse(tp._1._2, tp._1._2), tp._1._1)
+                    .map(rs => rs.string("city"))
+                    .first.apply()
+                })
+                if (maybeString.isEmpty) {
+                  DB.localTx(implicit session => {
+                    SQL("insert into city_failcount values(?,?,?)")
+                      .bind(pcode2PName.value.getOrElse(tp._1._2, tp._1._2), tp._1._1, 1)
+                      .update().apply()
+                  })
+                } else {
+                  DB.localTx { implicit session =>
+                    SQL("UPDATE city_failcount SET count  = count + ? where  city = ? and time = ?")
+                      .bind(1.0.toInt, pcode2PName.value.getOrElse(tp._1._2, tp._1._2), tp._1._1)
+                      .update().apply()
+                  }
+                }
+              }
+            })
+          })
+
+
         // 指标 3 以省份为维度统计订单量排名前 10 的省份数据,并且统计每个省份的订单成功率，只保留一位小数，存入MySQL中，进行前台页面显示。
         baseRDD.map(tp => (tp._5, (tp._4.head, tp._4(1))))
           .foreachPartition(part => {

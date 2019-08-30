@@ -12,13 +12,13 @@ object Save2mysql {
 
     val sc = new SparkContext(conf)
     val spark = SparkSession.builder().config(conf).getOrCreate()
-    val df: DataFrame = spark.read.json("C:\\Users\\孙洪斌\\Desktop\\充值平台实时统计分析\\cmcc.json")
+    val df: DataFrame = spark.read.json("C:\\Users\\孙洪斌\\Desktop\\JsonTest.json")
 
     val config = ConfigFactory.load()
     val prop = new Properties()
     prop.setProperty("user", config.getString("jdbc.user"))
     prop.setProperty("password", config.getString("jdbc.password"))
-    df.write.mode(SaveMode.Append).jdbc(config.getString("jdbc.url"),"cmcc", prop)
+    df.write.mode(SaveMode.Append).jdbc(config.getString("jdbc.url"),"test_pay", prop)
 
   }
 
