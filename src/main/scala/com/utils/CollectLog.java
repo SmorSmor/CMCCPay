@@ -29,13 +29,13 @@ public class CollectLog {
            BufferedReader bf = new BufferedReader(
                    new FileReader(
                            new File(
-                                   "C:\\Users\\孙洪斌\\Desktop\\JsonTest.json")));// 路径
+                                   "C:\\Users\\孙洪斌\\Desktop\\充值平台实时统计分析\\cmcc.json")));// 路径
            String line = null;
            while((line=bf.readLine())!=null){
                Thread.sleep(2000);
                producer.send(
                        new ProducerRecord<String, String>(
-                               "JsonData", line));
+                               "cmcc_pay", line));
            }
            bf.close();
            producer.close();
