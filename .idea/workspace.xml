@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2760242c-a249-443b-b0a8-02141e3ac620" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/jdbcPool.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/com/utils/DBConnectionPool.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.conf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/com/recharge/Overview_2.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/com/recharge/Overview_2.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/com/test/Homework.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/com/test/Homework.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/com/test/test.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/com/utils/CollectLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/com/utils/CollectLog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/com/utils/Save2mysql.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/com/utils/Save2mysql.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/com/recharge/Overview.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/com/recharge/Overview.scala" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -24,47 +22,22 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/com/test/Homework.scala">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/com/recharge/Overview.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="52" column="30" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="30" />
+            <state relative-caret-position="324">
+              <caret line="159" column="28" lean-forward="true" selection-start-line="159" selection-start-column="28" selection-end-line="159" selection-end-column="28" />
               <folding>
-                <element signature="e#18#34#0" expanded="true" />
+                <element signature="e#22#38#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/application.conf">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/com/utils/DBConnectionPool.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/com/utils/CollectLog.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="618">
-              <caret line="46" column="4" lean-forward="true" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="4" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#947#963#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/com/utils/Save2mysql.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="79" lean-forward="true" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="79" />
-              <folding>
-                <element signature="e#19#46#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-162">
+              <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -76,6 +49,8 @@
       <find>jedis</find>
       <find>file</find>
       <find>cmcc</find>
+      <find>set</find>
+      <find>get</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -89,7 +64,6 @@
         <option value="$PROJECT_DIR$/src/main/scala/com/recharge/KafkaRedisOffset.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/utils/TimeUtil.scala" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/scala/com/recharge/Overview.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/recharge/test.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/test/test.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/recharge/Overview_2.scala" />
@@ -97,6 +71,9 @@
         <option value="$PROJECT_DIR$/src/main/scala/com/utils/CollectLog.java" />
         <option value="$PROJECT_DIR$/src/main/scala/com/test/Homework.scala" />
         <option value="$PROJECT_DIR$/src/main/resources/application.conf" />
+        <option value="$PROJECT_DIR$/src/main/scala/com/utils/DBConnectionPool.scala" />
+        <option value="$PROJECT_DIR$/src/main/resources/jdbcPool.properties" />
+        <option value="$PROJECT_DIR$/src/main/scala/com/recharge/Overview.scala" />
       </list>
     </option>
   </component>
@@ -121,10 +98,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="370" />
-    <option name="y" value="-20" />
+    <option name="x" value="363" />
+    <option name="y" value="-18" />
     <option name="width" value="1005" />
-    <option name="height" value="1050" />
+    <option name="height" value="998" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -225,7 +202,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Homework">
+  <component name="RunManager" selected="Application.Overview">
     <configuration name="CollectLog" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.utils.CollectLog" />
       <module name="CMCCPay" />
@@ -252,8 +229,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Overview_2" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="com.recharge.Overview_2" />
+    <configuration name="Overview" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="com.recharge.Overview" />
       <module name="CMCCPay" />
       <extension name="coverage">
         <pattern>
@@ -293,11 +270,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Overview" />
         <item itemvalue="Application.Homework" />
         <item itemvalue="Application.CollectLog" />
         <item itemvalue="Application.Save2mysql" />
         <item itemvalue="Application.test (1)" />
-        <item itemvalue="Application.Overview_2" />
       </list>
     </recent_temporary>
   </component>
@@ -354,7 +331,14 @@
       <option name="project" value="LOCAL" />
       <updated>1567072539225</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="190830代码1">
+      <created>1567131146166</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1567131146166</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -366,7 +350,7 @@
       <window_info id="Capture Tool" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
-      <window_info content_ui="combo" id="Project" order="5" weight="0.21744967" />
+      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.21744967" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.50067115" side_tool="true" weight="0.32913166" />
@@ -374,7 +358,7 @@
       <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" />
-      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49932885" weight="0.22689076" />
+      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49932885" weight="0.26050422" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.39915967" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -420,7 +404,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="190828代码1" />
     <MESSAGE value="190829代码1" />
-    <option name="LAST_COMMIT_MESSAGE" value="190829代码1" />
+    <MESSAGE value="190830代码1" />
+    <option name="LAST_COMMIT_MESSAGE" value="190830代码1" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -492,26 +477,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/recharge/Overview.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="738">
-          <caret line="51" column="42" selection-start-line="51" selection-start-column="42" selection-end-line="51" selection-end-column="42" />
-          <folding>
-            <element signature="e#22#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/utils/JedisOffset.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
-          <folding>
-            <element signature="e#19#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/com/recharge/test.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="142">
@@ -532,19 +497,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/recharge/Overview_2.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="502">
-          <caret line="243" lean-forward="true" selection-start-line="243" selection-end-line="243" />
-          <folding>
-            <element signature="e#22#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/com/utils/Save2mysql.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
+        <state relative-caret-position="252">
           <caret line="14" column="79" lean-forward="true" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="79" />
           <folding>
             <element signature="e#19#46#0" expanded="true" />
@@ -563,19 +518,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.conf">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/com/test/Homework.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+        <state relative-caret-position="612">
+          <caret line="52" column="33" lean-forward="true" selection-start-line="52" selection-start-column="33" selection-end-line="52" selection-end-column="33" />
+          <folding>
+            <element signature="e#18#34#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/test/Homework.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/com/utils/JedisOffset.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="52" column="30" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="30" />
+        <state relative-caret-position="306">
+          <caret line="17" column="33" lean-forward="true" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
           <folding>
-            <element signature="e#18#34#0" expanded="true" />
+            <element signature="e#19#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/jdbcPool.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="22" lean-forward="true" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/com/recharge/Overview_2.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="212" column="12" lean-forward="true" selection-start-line="212" selection-start-column="12" selection-end-line="212" selection-end-column="12" />
+          <folding>
+            <element signature="e#22#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/com/utils/DBConnectionPool.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-162">
+          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/com/recharge/Overview.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="159" column="28" lean-forward="true" selection-start-line="159" selection-start-column="28" selection-end-line="159" selection-end-column="28" />
+          <folding>
+            <element signature="e#22#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
