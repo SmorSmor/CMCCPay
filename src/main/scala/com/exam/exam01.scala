@@ -54,7 +54,7 @@ object exam01 {
     var fromOffset: Map[TopicPartition, Long] = JedisOffset(groupId)
     // 判断一下有没数据
     val stream: InputDStream[ConsumerRecord[String, String]] =
-      if (fromOffset.size == 0) {
+      if (fromOffset.isEmpty) {
         KafkaUtils.createDirectStream(ssc,
           // 本地策略
           // 将数据均匀的分配到各个Executor上面
