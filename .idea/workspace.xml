@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2760242c-a249-443b-b0a8-02141e3ac620" name="Default Changelist" comment="190830代码1">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/com/exam/Ip2Provience.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/com/exam/exam01.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/com/test/test00.scala" afterDir="false" />
+    <list default="true" id="2760242c-a249-443b-b0a8-02141e3ac620" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/com/utils/CollectLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/com/utils/CollectLog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/com/utils/JedisOffset.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/com/utils/JedisOffset.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/com/exam/Ip2Provience.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/com/exam/Ip2Provience.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/com/exam/exam01.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/com/exam/exam01.scala" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -25,11 +22,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/com/exam/exam01.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="176" lean-forward="true" selection-start-line="176" selection-end-line="176" />
-              <folding>
-                <element signature="e#18#34#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-108">
+              <caret line="9" column="31" lean-forward="true" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -49,8 +43,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/com/exam/Ip2Provience.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+            <state relative-caret-position="32">
+              <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="42" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -415,7 +409,14 @@
       <option name="project" value="LOCAL" />
       <updated>1567156809516</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="190831代码1">
+      <created>1567243295448</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1567243295449</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -427,7 +428,7 @@
       <window_info id="Capture Tool" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
-      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.22281879" />
+      <window_info content_ui="combo" id="Project" order="5" visible="true" weight="0.22281879" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.50067115" side_tool="true" weight="0.32913166" />
@@ -435,7 +436,7 @@
       <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" weight="0.32913166" />
-      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49932885" visible="true" weight="0.37114847" />
+      <window_info active="true" anchor="bottom" id="Run" order="6" sideWeight="0.49932885" visible="true" weight="0.30532214" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.39915967" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -482,7 +483,8 @@
     <MESSAGE value="190828代码1" />
     <MESSAGE value="190829代码1" />
     <MESSAGE value="190830代码1" />
-    <option name="LAST_COMMIT_MESSAGE" value="190830代码1" />
+    <MESSAGE value="190831代码1" />
+    <option name="LAST_COMMIT_MESSAGE" value="190831代码1" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -657,20 +659,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../DMP/src/main/scala/com/test/test01.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="31" column="15" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/exam/Ip2Provience.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/com/utils/CollectLog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-162">
@@ -681,13 +669,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../DMP/src/main/scala/com/test/test01.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="31" column="15" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/com/exam/Ip2Provience.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="42" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/com/exam/exam01.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="176" lean-forward="true" selection-start-line="176" selection-end-line="176" />
-          <folding>
-            <element signature="e#18#34#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-108">
+          <caret line="9" column="31" lean-forward="true" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
         </state>
       </provider>
     </entry>

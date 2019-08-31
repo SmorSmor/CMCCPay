@@ -17,7 +17,6 @@ object Ip2Provience {
       }).collect().toList
 
 
-
     println(list)
 
 
@@ -35,10 +34,11 @@ object Ip2Provience {
       val value1 = list(mid)._1
       if (tar == value1)
         mid
-      else if (tar < value1)
-        max = mid - 1
-      else
+      else if (tar > value1)
         min = mid + 1
+      else
+        max = mid - 1
+
     }
     list(mid)._2
 

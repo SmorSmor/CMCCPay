@@ -6,7 +6,7 @@ import com.utils.{JedisConnectionPool, JedisOffset}
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.serialization.StringDeserializer
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.SparkConf
 import org.apache.spark.rdd.RDD
 import org.apache.spark.streaming.dstream.InputDStream
 import org.apache.spark.streaming.kafka010.{ConsumerStrategies, HasOffsetRanges, KafkaUtils, LocationStrategies}
@@ -70,7 +70,6 @@ object exam01 {
           ConsumerStrategies.Assign[String, String](fromOffset.keys, kafkas, fromOffset)
         )
       }
-
 
 
     val list: List[(Long, String)] = ssc.sparkContext.textFile("C:\\Users\\孙洪斌\\Desktop\\考试\\ip.txt")
@@ -166,12 +165,13 @@ object exam01 {
       val value1 = list(mid)._1
       if (tar == value1)
         mid
-      else if (tar < value1)
-        max = mid - 1
-      else
+      else if (tar > value1)
         min = mid + 1
+      else
+        max = mid - 1
+
     }
-    list(mid+1)._2
+    list(mid)._2
 
   }
 
