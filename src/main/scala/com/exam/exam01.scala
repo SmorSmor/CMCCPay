@@ -125,6 +125,7 @@ object exam01 {
 
         // 问题3.计算每个地域的商品成交总金额（结果保存到Redis中）
         baseRDD.map(tp => (getProvience(list, tp._2), tp._5))
+          .map(t => (list(t._1)._2, t._2))
           .foreachPartition(part => {
             val jedis = JedisConnectionPool.getConnection()
             part.foreach(tp => {
@@ -155,7 +156,7 @@ object exam01 {
     * @param ip
     * @return
     */
-  def getProvience(list: List[(Long, String)], ip: String) = {
+  def getProvience(list: List[(Long, String)], ip: String): Int = {
     val tar: Long = ip2Long(ip)
     var min = 0
     var max = list.length - 1
@@ -164,14 +165,13 @@ object exam01 {
       mid = (max + min) / 2
       val value1 = list(mid)._1
       if (tar == value1)
-        mid
+        return mid
       else if (tar > value1)
         min = mid + 1
       else
         max = mid - 1
-
     }
-    list(mid)._2
+    mid
 
   }
 
