@@ -7,6 +7,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.spark.SparkConf
+import org.apache.spark.broadcast.Broadcast
 import org.apache.spark.rdd.RDD
 import org.apache.spark.streaming.dstream.InputDStream
 import org.apache.spark.streaming.kafka010.{ConsumerStrategies, HasOffsetRanges, KafkaUtils, LocationStrategies}
@@ -27,7 +28,7 @@ object exam01 {
     // 配置参数
     // 配置基本参数
     // 组名
-    val groupId = "group01"
+    val groupId = "group02"
     // topic
     val topic = "exam01"
     // 指定Kafka的broker地址（SparkStreaming程序消费过程中，需要和Kafka的分区对应）
@@ -81,7 +82,7 @@ object exam01 {
       }).collect().toList
 
 
-    ssc.sparkContext.broadcast(list)
+    val bd: Broadcast[List[(Long, String)]] = ssc.sparkContext.broadcast(list)
     stream.foreachRDD({
       rdd =>
         val offestRange = rdd.asInstanceOf[HasOffsetRanges].offsetRanges
@@ -124,7 +125,7 @@ object exam01 {
 
 
         // 问题3.计算每个地域的商品成交总金额（结果保存到Redis中）
-        baseRDD.map(tp => (getProvience(list, tp._2), tp._5))
+        baseRDD.map(tp => (getProvience(bd.value, tp._2), tp._5))
           .map(t => (list(t._1)._2, t._2))
           .foreachPartition(part => {
             val jedis = JedisConnectionPool.getConnection()
@@ -164,9 +165,10 @@ object exam01 {
     while (min <= max) {
       mid = (max + min) / 2
       val value1 = list(mid)._1
-      if (tar == value1)
+      val value2 = list(mid + 1)._1
+      if (tar >= value1 && tar < value2)
         return mid
-      else if (tar > value1)
+      else if (tar >= value2)
         min = mid + 1
       else
         max = mid - 1
