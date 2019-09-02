@@ -17,7 +17,7 @@ public class CollectLog {
        //这个是用来配置kafka的参数
        Properties prop = new Properties();
        //这里不是配置broker.id了，这个是配置bootstrap.servers
-       prop.put("bootstrap.servers", "hadoop01:9092,hadoop02:9092,hadoop03:9092");
+       prop.put("bootstrap.servers", "hadoop00:9092");
        //下面是分别配置 key和value的序列化
        prop.put("key.serializer",
                "org.apache.kafka.common.serialization.StringSerializer");
