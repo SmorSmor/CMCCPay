@@ -178,6 +178,35 @@ object exam01 {
   }
 
   /**
+    * 梁栋
+    * @param list
+    * @param ip
+    * @return
+    */
+
+  def binarySearch(list: List[(String, String, String)], ip: Long): Int = {
+    // 定义要查找的开始值和结束值
+    var start = 0
+    var end = list.length - 1
+
+    while (start <= end) {
+      // 中间值
+      val middle = (start + end) / 2
+      // 判断
+      if ((ip >= list(middle)._1.toLong) && (ip <= list(middle)._2.toLong)) {
+        return middle
+      } else if (ip < list(middle)._1.toLong) {
+        end = middle - 1
+      } else {
+        start = middle + 1
+      }
+
+    }
+
+    -1
+  }
+
+  /**
     * ip格式转为Long
     *
     * @param ip
