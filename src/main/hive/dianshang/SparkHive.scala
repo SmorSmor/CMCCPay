@@ -21,13 +21,13 @@ object SparkHive {
     prop.put("password", load.getString("jdbc.password"))
     val url = load.getString("jdbc.url")
 
-//    // 行为日志浏览类别统计
-//    // 查询生成DF
-//    val shop_dm_actlog_view = spark.sql(config.getString("shop_dm_actlog_view"))
-//    // 写入HIVE
-//    shop_dm_actlog_view.write.mode(SaveMode.Overwrite).insertInto("dm_shop.dm_actlog_view")
-//    // 写入MySQL
-//    shop_dm_actlog_view.write.mode("append").jdbc(url, "shop_dm_actlog_view", prop)
+    // 行为日志浏览类别统计
+    // 查询生成DF
+    val shop_dm_actlog_view = spark.sql(config.getString("shop_dm_actlog_view"))
+    // 写入HIVE
+    shop_dm_actlog_view.write.mode(SaveMode.Overwrite).insertInto("dm_shop.dm_actlog_view")
+    // 写入MySQL
+    shop_dm_actlog_view.write.mode("append").jdbc(url, "shop_dm_actlog_view", prop)
 
 
     // 用户浏览地域统计
